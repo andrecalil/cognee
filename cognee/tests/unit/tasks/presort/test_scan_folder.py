@@ -12,6 +12,7 @@ async def test_scan_keeps_real_files_and_flags_junk(messy_folder):
     kept_names = {record.name for record in files}
     assert "report.pdf" in kept_names
     assert "notes.txt" in kept_names
+    assert "contact_utf16.txt" in kept_names
     assert "invoice_march.pdf" in kept_names
     assert "main.py" in kept_names
 
@@ -34,6 +35,9 @@ async def test_scan_metadata(messy_folder):
     assert by_name["notes.txt"].is_text
     assert by_name["notes.txt"].extension == "txt"
     assert by_name["notes.txt"].loader_claimed
+    assert by_name["contact_utf16.txt"].is_text
+    assert by_name["contact_utf16.txt"].extension == "txt"
+    assert by_name["contact_utf16.txt"].loader_claimed
     assert by_name["main.py"].is_code
     assert not by_name["holiday.jpg"].is_text
 
